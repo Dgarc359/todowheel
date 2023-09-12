@@ -1,0 +1,10 @@
+syntax = "proto3";
+package todowheel;
+
+import "google/protobuf/timestamp.proto";
+
+message RequestBody {
+    enum Action {
+        SPIN = 0;
+    }
+}
