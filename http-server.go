@@ -2,27 +2,22 @@ package main
 
 import (
 	"fmt"
-	"io"
+	_ "io"
 	"log"
 	"net/http"
+	util "todowheel-backend/http-methods"
 )
 
 /*
 Starts HTTP server on specified port
 */
 func startServer() {
-    http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "OK")
-        body, err := io.ReadAll(r.Body)
-        content := r.Header.Get("Content-Type")
-        fmt.Printf("\nContent %s\n", content)
 
-        if err != nil {
-            log.Printf("Error reading body, %v", err)
-            return
-        }
-        fmt.Printf("Request body, %s", body)
-    })
+    http.HandleFunc("/health", util.GetHealth)
+    
+    //http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+    //    util.GetHealth(w, r)
+    //})
 
     fmt.Printf("Server running (port=8080), route: http://localhost:8080/health\n")
     if err := http.ListenAndServe(":8080", nil); err != nil {

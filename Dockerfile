@@ -2,14 +2,10 @@ FROM golang:1.20.8-bookworm AS builder
 
 WORKDIR /app
 
-# go.mod go.sum etc
-COPY go.* ./
+COPY . .
 
-RUN go mod download
-
-# source code
-COPY *.go ./
-
+RUN go mod tidy
+# RUN go mod download
 RUN go build -o /todowheel-backend
 
 EXPOSE 8080
