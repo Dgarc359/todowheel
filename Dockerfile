@@ -10,4 +10,4 @@ RUN go build -o /todowheel-backend
 
 EXPOSE 8080
 
-ENTRYPOINT ["/todowheel-backend"]
+ENTRYPOINT ["/todowheel-backend", "-s"]

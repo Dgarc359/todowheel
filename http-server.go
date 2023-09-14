@@ -14,12 +14,14 @@ Starts HTTP server on specified port
 func startServer() {
 
     http.HandleFunc("/health", util.GetHealth)
+    http.HandleFunc("/get-task", util.GetTask)
+    http.HandleFunc("/create-task", util.CreateTask)
     
     //http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
     //    util.GetHealth(w, r)
     //})
 
-    fmt.Printf("Server running (port=8080), route: http://localhost:8080/health\n")
+    fmt.Printf("Server running (port=8080), route: http://localhost:8080\n")
     if err := http.ListenAndServe(":8080", nil); err != nil {
         log.Fatal(err)
     }

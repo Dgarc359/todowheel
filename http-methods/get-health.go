@@ -17,5 +17,8 @@ func GetHealth(w http.ResponseWriter, r *http.Request) {
             log.Printf("Error reading body, %v", err)
             return
         }
+
         fmt.Printf("Request body, %s", body)
+
+        
 }
