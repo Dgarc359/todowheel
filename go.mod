@@ -3,7 +3,7 @@ module todowheel-backend
 go 1.20
 
 require (
-	github.com/golang/protobuf v1.5.3
+	github.com/mattn/go-sqlite3 v1.14.17
 	google.golang.org/protobuf v1.31.0
 )
 

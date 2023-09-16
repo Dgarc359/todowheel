@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	util "todowheel-backend/http-methods"
+    db "todowheel-backend/database"
 )
 
 /*
@@ -13,9 +14,17 @@ Starts HTTP server on specified port
 */
 func startServer() {
 
-    http.HandleFunc("/health", util.GetHealth)
-    http.HandleFunc("/get-task", util.GetTask)
-    http.HandleFunc("/create-task", util.CreateTask)
+    centralDb := new(db.Database)
+    defer centralDb.Connection.Close()
+
+    http.HandleFunc("/health",util.GetHealth)
+    http.HandleFunc("/get-task", func (w http.ResponseWriter, r *http.Request) {
+        util.GetTask(w, r)
+    })
+    http.HandleFunc("/create-task", func (w http.ResponseWriter, r *http.Request) {
+        util.CreateTask(w, r, centralDb)
+
+    })
     
     //http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
     //    util.GetHealth(w, r)
@@ -23,6 +32,7 @@ func startServer() {
 
     fmt.Printf("Server running (port=8080), route: http://localhost:8080\n")
     if err := http.ListenAndServe(":8080", nil); err != nil {
+        centralDb.Connection.Close()
         log.Fatal(err)
     }
 }
