@@ -1,10 +1,19 @@
 package database
 
 import (
-    "log"
-    _ "github.com/mattn/go-sqlite3"
-    "database/sql"
+	"database/sql"
+	"fmt"
+	"log"
+
+	_ "github.com/mattn/go-sqlite3"
+	_ "gorm.io/gorm"
 )
+
+type Todo struct {
+    ID string `gorm:"column:id" json:"id"`
+    TaskName string `gorm:"column:todo_name" json:"taskName"`
+    TaskLength string `gorm:"column:todo_length" json:"taskLength"`
+}
 
 type Storage interface {
     CreateTask() error
@@ -41,8 +50,19 @@ func (db *Database) GetTasks() {
         log.Printf("Error getting todos: %q: %s", err, sqlStmnt)
     }
 
-    log.Println(execRes.Columns())
 
+    log.Println("getting rows")
+    for cont := true; cont; cont = execRes.NextResultSet() {
+        for execRes.Next() {
+            var t Todo
+            err := execRes.Scan(&t.ID, &t.TaskName, &t.TaskLength)
+            if err != nil {
+                log.Fatal("error getting row")
+            }
+            fmt.Printf("%+v\n", t)
+            log.Println(t)
+        }
+    }
 }
 
 func (db *Database) CreateTask() {
