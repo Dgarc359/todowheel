@@ -14,12 +14,19 @@ Starts HTTP server on specified port
 */
 func startServer() {
 
-    centralDb := new(db.Database)
+    centralDb, err := db.NewSqliteStore()
+    if err != nil {
+        println("unable to start db")
+        log.Fatal(err);
+    }
     defer centralDb.Connection.Close()
 
     http.HandleFunc("/health",util.GetHealth)
     http.HandleFunc("/get-task", func (w http.ResponseWriter, r *http.Request) {
         util.GetTask(w, r)
+    })
+    http.HandleFunc("/get-tasks", func (w http.ResponseWriter, r *http.Request) {
+        util.GetTasks(w, r, centralDb)
     })
     http.HandleFunc("/create-task", func (w http.ResponseWriter, r *http.Request) {
         util.CreateTask(w, r, centralDb)
