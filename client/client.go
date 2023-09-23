@@ -2,7 +2,6 @@ package client
 
 import (
 	"bytes"
-	"io"
 	"log"
 	"net/http"
 	pb "todowheel-backend/proto"
@@ -27,18 +26,7 @@ func CreateClient() {
     bodyBuf := bytes.NewBuffer(body)
     // res, err := http.NewRequest("POST", "http://localhost:8080/create-task", bytes.NewBuffer(body))
 
-    res, err := http.Post(url,"application/proto", bodyBuf)
-    if err != nil {
-        println("error making http request")
-    }
-    resBody, err := io.ReadAll(res.Body)
-    res.Body.Close()
-
-    if err != nil {
-        println("error reading response body")
-    }
-    println("got response")
-    println(resBody)
+    http.Post(url,"application/proto", bodyBuf)
     //getTaskRequest := pb.PostGetTask{
     //    TaskName: "test-task",
     //}
