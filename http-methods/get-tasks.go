@@ -6,6 +6,6 @@ import (
 )
 
 
-func GetTasks(w http.ResponseWriter, r *http.Request, conn *db.Database) {
+func GetTasks(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
     conn.GetTasks()
 }

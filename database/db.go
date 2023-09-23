@@ -6,26 +6,22 @@ import (
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
-	_ "gorm.io/gorm"
+    pb "todowheel-backend/proto"
 )
 
 type Todo struct {
     ID string `gorm:"column:id" json:"id"`
     TaskName string `gorm:"column:todo_name" json:"taskName"`
-    TaskLength string `gorm:"column:todo_length" json:"taskLength"`
+    TaskLength int64 `gorm:"column:todo_length" json:"taskLength"`
 }
 
-type Storage interface {
-    CreateTask() error
-    GetTasks() error
-}
 
 // some kind of configs
-type Database struct {
+type SqliteDatabase struct {
     Connection *sql.DB
 }
 
-func NewSqliteStore() (*Database, error) {
+func NewSqliteStore() (*SqliteDatabase, error) {
     conn, err := sql.Open("sqlite3", "test.db")
 
     if err != nil {
@@ -36,12 +32,12 @@ func NewSqliteStore() (*Database, error) {
         return nil, err
     }
 
-    return &Database {
+    return &SqliteDatabase {
         Connection: conn,
     }, nil
 }
 
-func (db *Database) GetTasks() {
+func (db *SqliteDatabase) GetTasks() {
     sqlStmnt := `select * from todos;`
 
     execRes, err := db.Connection.Query(sqlStmnt)
@@ -65,17 +61,25 @@ func (db *Database) GetTasks() {
     }
 }
 
-func (db *Database) CreateTask() {
+func (db *SqliteDatabase) CreateTask(t *pb.PostCreateTask) {
     println("creating task!")
 
-    	sqlStmt := `
-	create table foo (id integer not null primary key, name text);
-	`
-    _, err := db.Connection.Exec(sqlStmt)
-	if err != nil {
-		log.Printf("%q: %s\n", err, sqlStmt)
-		return
-	}
+    queryString := `insert into todos
+    (todo_name, todo_length)
+    values
+    (?, ?)`
+
+    preparedQuery, err := db.Connection.Prepare(queryString)
+
+    if err != nil {
+        log.Fatal("failed to prepare query")
+    }
+
+    _,err = preparedQuery.Exec(t.TaskName, t.TaskLength)
+
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 
 

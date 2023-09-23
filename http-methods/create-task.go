@@ -11,7 +11,7 @@ import (
 	"google.golang.org/protobuf/proto"
 )
 
-func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.Database) {
+func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
     println("Got create task request")
     p := &pb.PostCreateTask{}
 
@@ -25,5 +25,5 @@ func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.Database) {
 
     fmt.Printf("Unmarshalled Body: %v", p)
 
-    conn.CreateTask()
+    conn.CreateTask(p)
 }
