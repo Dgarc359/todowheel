@@ -1,0 +1,9 @@
+syntax = "proto3";
+package main;
+
+option go_package = "todowheel-backend/proto";
+
+message PostGetTasks {
+    optional int32 min_task_length = 1;
+    optional int32 max_task_length = 2;
+}

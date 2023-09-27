@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.28.1
 // 	protoc        v4.23.3
-// source: post-delete-task.proto
+// source: proto/post-delete-task.proto
 
 package proto
 
@@ -31,7 +31,7 @@ type PostDeleteTask struct {
 func (x *PostDeleteTask) Reset() {
 	*x = PostDeleteTask{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_post_delete_task_proto_msgTypes[0]
+		mi := &file_proto_post_delete_task_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -44,7 +44,7 @@ func (x *PostDeleteTask) String() string {
 func (*PostDeleteTask) ProtoMessage() {}
 
 func (x *PostDeleteTask) ProtoReflect() protoreflect.Message {
-	mi := &file_post_delete_task_proto_msgTypes[0]
+	mi := &file_proto_post_delete_task_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *PostDeleteTask) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PostDeleteTask.ProtoReflect.Descriptor instead.
 func (*PostDeleteTask) Descriptor() ([]byte, []int) {
-	return file_post_delete_task_proto_rawDescGZIP(), []int{0}
+	return file_proto_post_delete_task_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *PostDeleteTask) GetTaskName() string {
@@ -67,35 +67,36 @@ func (x *PostDeleteTask) GetTaskName() string {
 	return ""
 }
 
-var File_post_delete_task_proto protoreflect.FileDescriptor
+var File_proto_post_delete_task_proto protoreflect.FileDescriptor
 
-var file_post_delete_task_proto_rawDesc = []byte{
-	0x0a, 0x16, 0x70, 0x6f, 0x73, 0x74, 0x2d, 0x64, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x2d, 0x74, 0x61,
-	0x73, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04, 0x6d, 0x61, 0x69, 0x6e, 0x22, 0x2d,
-	0x0a, 0x0e, 0x50, 0x6f, 0x73, 0x74, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x61, 0x73, 0x6b,
-	0x12, 0x1b, 0x0a, 0x09, 0x74, 0x61, 0x73, 0x6b, 0x5f, 0x6e, 0x61, 0x6d, 0x65, 0x18, 0x01, 0x20,
-	0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x61, 0x73, 0x6b, 0x4e, 0x61, 0x6d, 0x65, 0x42, 0x19, 0x5a,
-	0x17, 0x74, 0x6f, 0x64, 0x6f, 0x77, 0x68, 0x65, 0x65, 0x6c, 0x2d, 0x62, 0x61, 0x63, 0x6b, 0x65,
-	0x6e, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+var file_proto_post_delete_task_proto_rawDesc = []byte{
+	0x0a, 0x1c, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2f, 0x70, 0x6f, 0x73, 0x74, 0x2d, 0x64, 0x65, 0x6c,
+	0x65, 0x74, 0x65, 0x2d, 0x74, 0x61, 0x73, 0x6b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x04,
+	0x6d, 0x61, 0x69, 0x6e, 0x22, 0x2d, 0x0a, 0x0e, 0x50, 0x6f, 0x73, 0x74, 0x44, 0x65, 0x6c, 0x65,
+	0x74, 0x65, 0x54, 0x61, 0x73, 0x6b, 0x12, 0x1b, 0x0a, 0x09, 0x74, 0x61, 0x73, 0x6b, 0x5f, 0x6e,
+	0x61, 0x6d, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x74, 0x61, 0x73, 0x6b, 0x4e,
+	0x61, 0x6d, 0x65, 0x42, 0x19, 0x5a, 0x17, 0x74, 0x6f, 0x64, 0x6f, 0x77, 0x68, 0x65, 0x65, 0x6c,
+	0x2d, 0x62, 0x61, 0x63, 0x6b, 0x65, 0x6e, 0x64, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
-	file_post_delete_task_proto_rawDescOnce sync.Once
-	file_post_delete_task_proto_rawDescData = file_post_delete_task_proto_rawDesc
+	file_proto_post_delete_task_proto_rawDescOnce sync.Once
+	file_proto_post_delete_task_proto_rawDescData = file_proto_post_delete_task_proto_rawDesc
 )
 
-func file_post_delete_task_proto_rawDescGZIP() []byte {
-	file_post_delete_task_proto_rawDescOnce.Do(func() {
-		file_post_delete_task_proto_rawDescData = protoimpl.X.CompressGZIP(file_post_delete_task_proto_rawDescData)
+func file_proto_post_delete_task_proto_rawDescGZIP() []byte {
+	file_proto_post_delete_task_proto_rawDescOnce.Do(func() {
+		file_proto_post_delete_task_proto_rawDescData = protoimpl.X.CompressGZIP(file_proto_post_delete_task_proto_rawDescData)
 	})
-	return file_post_delete_task_proto_rawDescData
+	return file_proto_post_delete_task_proto_rawDescData
 }
 
-var file_post_delete_task_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_post_delete_task_proto_goTypes = []interface{}{
+var file_proto_post_delete_task_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_proto_post_delete_task_proto_goTypes = []interface{}{
 	(*PostDeleteTask)(nil), // 0: main.PostDeleteTask
 }
-var file_post_delete_task_proto_depIdxs = []int32{
+var file_proto_post_delete_task_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
 	0, // [0:0] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -103,13 +104,13 @@ var file_post_delete_task_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for field type_name
 }
 
-func init() { file_post_delete_task_proto_init() }
-func file_post_delete_task_proto_init() {
-	if File_post_delete_task_proto != nil {
+func init() { file_proto_post_delete_task_proto_init() }
+func file_proto_post_delete_task_proto_init() {
+	if File_proto_post_delete_task_proto != nil {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_post_delete_task_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
+		file_proto_post_delete_task_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PostDeleteTask); i {
 			case 0:
 				return &v.state
@@ -126,18 +127,18 @@ func file_post_delete_task_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: file_post_delete_task_proto_rawDesc,
+			RawDescriptor: file_proto_post_delete_task_proto_rawDesc,
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_post_delete_task_proto_goTypes,
-		DependencyIndexes: file_post_delete_task_proto_depIdxs,
-		MessageInfos:      file_post_delete_task_proto_msgTypes,
+		GoTypes:           file_proto_post_delete_task_proto_goTypes,
+		DependencyIndexes: file_proto_post_delete_task_proto_depIdxs,
+		MessageInfos:      file_proto_post_delete_task_proto_msgTypes,
 	}.Build()
-	File_post_delete_task_proto = out.File
-	file_post_delete_task_proto_rawDesc = nil
-	file_post_delete_task_proto_goTypes = nil
-	file_post_delete_task_proto_depIdxs = nil
+	File_proto_post_delete_task_proto = out.File
+	file_proto_post_delete_task_proto_rawDesc = nil
+	file_proto_post_delete_task_proto_goTypes = nil
+	file_proto_post_delete_task_proto_depIdxs = nil
 }
