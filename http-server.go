@@ -28,9 +28,11 @@ func startServer() {
 	http.HandleFunc("/get-tasks", func(w http.ResponseWriter, r *http.Request) {
 		util.GetTasks(w, r, centralDb)
 	})
+	http.HandleFunc("/spin", func(w http.ResponseWriter, r *http.Request) {
+		util.SpinTheWheel(w, r, centralDb)
+	})
 	http.HandleFunc("/create-task", func(w http.ResponseWriter, r *http.Request) {
 		util.CreateTask(w, r, centralDb)
-
 	})
 
 	//http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {

@@ -53,7 +53,7 @@ func CreateClient() {
 		log.Fatal("unable to marshal getTasks")
 	}
 	getTasksBuf := bytes.NewBuffer(body)
-	getTasksUrl := "http://localhost:8080/get-tasks"
+	getTasksUrl := "http://localhost:8080/spin"
 	println("making get tasks request")
 	http.Post(getTasksUrl, "application/proto", getTasksBuf)
 }
