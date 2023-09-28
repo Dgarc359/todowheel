@@ -14,7 +14,6 @@ import (
 
 func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
 	println("Got create task request")
-	p := &pb.PostCreateTask{}
 
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
@@ -22,7 +21,14 @@ func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase)
 	}
 	r.Body.Close()
 
-	proto.Unmarshal(body, p)
+	applicationType := r.Header.Get("application/type")
+
+	p := &pb.PostCreateTask{}
+	if applicationType == "application/proto" {
+		proto.Unmarshal(body, p)
+	} else if applicationType == "application/json" {
+
+	}
 
 	fmt.Printf("Unmarshalled Body: %v", p)
 
