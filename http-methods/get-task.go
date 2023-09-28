@@ -18,7 +18,7 @@ func GetTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
 	body, _ := io.ReadAll(r.Body)
 	r.Body.Close()
 
-	applicationType := r.Header.Get("application/type")
+	applicationType := r.Header.Get("Content-Type")
 
 	var data map[string]interface{}
 

@@ -21,7 +21,7 @@ func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase)
 	}
 	r.Body.Close()
 
-	applicationType := r.Header.Get("application/type")
+	applicationType := r.Header.Get("Content-Type")
 
 	p := &pb.PostCreateTask{}
 	if applicationType == "application/proto" {
