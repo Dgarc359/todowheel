@@ -16,8 +16,8 @@ type UniqueTodo struct {
 }
 
 type GetTasks struct {
-	MinTaskLength int32 `gorm:"column:todo_length" json:"taskLength"`
-	MaxTaskLength int32 `gorm:"column:todo_length" json:"taskLength"`
+	MinTaskLength int32 `gorm:"column:todo_length" json:"minTaskLength"`
+	MaxTaskLength int32 `gorm:"column:todo_length" json:"maxTaskLength"`
 }
 
 // some kind of configs

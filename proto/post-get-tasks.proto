@@ -4,6 +4,6 @@ package main;
 option go_package = "todowheel-backend/proto";
 
 message PostGetTasks {
-    optional int32 min_task_length = 1;
-    optional int32 max_task_length = 2;
+    optional int32 min_task_length = 1 [json_name="minTaskLength"];
+    optional int32 max_task_length = 2 [json_name="maxTaskLength"];
 }

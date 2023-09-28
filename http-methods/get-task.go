@@ -20,16 +20,13 @@ func GetTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
 
 	applicationType := r.Header.Get("Content-Type")
 
-	var data map[string]interface{}
-
 	if applicationType == "application/proto" {
 		proto.Unmarshal(body, p)
 	} else if applicationType == "application/json" {
-		if err := json.Unmarshal(body, &data); err != nil {
+		if err := json.Unmarshal(body, &p); err != nil {
 			json.NewEncoder(w).Encode(Response{"bad request", 400})
 			return
 		}
-		p.TaskName = data["taskName"].(string)
 	}
 
 	fmt.Printf("Unmarshalled Body: %v", p)
