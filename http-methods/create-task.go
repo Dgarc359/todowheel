@@ -2,28 +2,28 @@ package util
 
 import (
 	"fmt"
-    "log"
 	"io"
+	"log"
 	"net/http"
+	db "todowheel-backend/database"
 	pb "todowheel-backend/proto"
-    db "todowheel-backend/database"
 
 	"google.golang.org/protobuf/proto"
 )
 
 func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
-    println("Got create task request")
-    p := &pb.PostCreateTask{}
+	println("Got create task request")
+	p := &pb.PostCreateTask{}
 
-    body, err := io.ReadAll(r.Body)
-    if err != nil {
-        log.Fatal("not able to read body")
-    }
-    r.Body.Close();
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal("not able to read body")
+	}
+	r.Body.Close()
 
-    proto.Unmarshal(body, p)
+	proto.Unmarshal(body, p)
 
-    fmt.Printf("Unmarshalled Body: %v", p)
+	fmt.Printf("Unmarshalled Body: %v", p)
 
-    conn.CreateTask(p)
+	conn.CreateTask(p)
 }
