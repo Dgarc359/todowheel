@@ -1,6 +1,7 @@
 package util
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -19,5 +20,7 @@ func GetHealth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	fmt.Printf("Request body, %s", body)
+
+	json.NewEncoder(w).Encode(Response{"success", 200})
 
 }

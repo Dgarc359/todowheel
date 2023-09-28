@@ -23,7 +23,7 @@ func startServer() {
 
 	http.HandleFunc("/health", util.GetHealth)
 	http.HandleFunc("/get-task", func(w http.ResponseWriter, r *http.Request) {
-		util.GetTask(w, r)
+		util.GetTask(w, r, centralDb)
 	})
 	http.HandleFunc("/get-tasks", func(w http.ResponseWriter, r *http.Request) {
 		util.GetTasks(w, r, centralDb)

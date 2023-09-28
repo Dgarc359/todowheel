@@ -2,6 +2,8 @@ package client
 
 import (
 	"bytes"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	pb "todowheel-backend/proto"
@@ -55,5 +57,16 @@ func CreateClient() {
 	getTasksBuf := bytes.NewBuffer(body)
 	getTasksUrl := "http://localhost:8080/spin"
 	println("making get tasks request")
-	http.Post(getTasksUrl, "application/proto", getTasksBuf)
+	res, err := http.Post(getTasksUrl, "application/proto", getTasksBuf)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	body, err = ioutil.ReadAll(res.Body)
+	if err != nil {
+		fmt.Print(err)
+	}
+	fmt.Println(string(body))
+
+	defer res.Body.Close()
 }
