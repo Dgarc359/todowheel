@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	pb "todowheel-backend/proto"
@@ -14,7 +14,7 @@ import (
 func CreateClient() {
 	var temp int32 = 20
 	createTask := new(pb.PostCreateTask)
-	createTask.TaskName = "test-task"
+	createTask.TaskName = "task1"
 	createTask.TaskId = 3
 	createTask.TaskLength = &temp
 
@@ -30,7 +30,7 @@ func CreateClient() {
 
 	temp = 200
 	createTask = new(pb.PostCreateTask)
-	createTask.TaskName = "test-task"
+	createTask.TaskName = "task2"
 	createTask.TaskId = 3
 	createTask.TaskLength = &temp
 
@@ -62,7 +62,7 @@ func CreateClient() {
 		fmt.Println(err)
 	}
 
-	body, err = ioutil.ReadAll(res.Body)
+	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Print(err)
 	}

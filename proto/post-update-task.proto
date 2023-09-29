@@ -4,6 +4,6 @@ package main;
 option go_package = "todowheel-backend/proto";
 
 message PostUpdateTask {
-    string task_name = 1;
-    int32 task_length = 2;
+    string task_name = 1 [json_name="taskName"];
+    int32 task_length = 2 [json_name="taskLength"];
 }

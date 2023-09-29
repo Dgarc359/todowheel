@@ -13,11 +13,21 @@ import (
 )
 
 func GetTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
+	fmt.Println("got get task request")
 	p := &pb.PostGetTask{}
 	body, _ := io.ReadAll(r.Body)
 	r.Body.Close()
 
-	proto.Unmarshal(body, p)
+	applicationType := r.Header.Get("Content-Type")
+
+	if applicationType == "application/proto" {
+		proto.Unmarshal(body, p)
+	} else if applicationType == "application/json" {
+		if err := json.Unmarshal(body, &p); err != nil {
+			json.NewEncoder(w).Encode(Response{"bad request", 400})
+			return
+		}
+	}
 
 	fmt.Printf("Unmarshalled Body: %v", p)
 

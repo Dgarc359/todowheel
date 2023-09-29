@@ -2,6 +2,7 @@ package util
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"math/rand"
@@ -13,7 +14,7 @@ import (
 )
 
 func SpinTheWheel(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
-	println("got get tasks request")
+	fmt.Println("got spin the wheel request")
 	p := &pb.PostGetTasks{}
 	body, _ := io.ReadAll(r.Body)
 	r.Body.Close()
@@ -22,7 +23,7 @@ func SpinTheWheel(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabas
 
 	res, _ := conn.GetTasks(p)
 
-	randomTodoIndex := rand.Intn(len(res) - 0)
+	randomTodoIndex := rand.Intn(len(res))
 	randomTodo := res[randomTodoIndex]
 	log.Printf("random item %v", randomTodo)
 
