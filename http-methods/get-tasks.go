@@ -2,7 +2,8 @@ package util
 
 import (
 	"encoding/json"
-	"io"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	db "todowheel-backend/database"
@@ -14,9 +15,9 @@ import (
 func GetTasks(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
 	println("got get tasks request")
 	p := &pb.PostGetTasks{}
-	body, _ := io.ReadAll(r.Body)
-	r.Body.Close()
-
+	body, _ := ioutil.ReadAll(r.Body)
+	defer r.Body.Close()
+	fmt.Printf("Body: %+v", string(body))
 	applicationType := r.Header.Get("Content-Type")
 
 	if applicationType == "application/proto" {
@@ -28,6 +29,7 @@ func GetTasks(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase) {
 		}
 	}
 
+	fmt.Printf("Calling get tasks: %+v", p)
 	res, err := conn.GetTasks(p)
 
 	if err != nil {

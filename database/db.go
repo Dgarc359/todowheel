@@ -59,9 +59,12 @@ func (db *SqliteDatabase) GetTask(t *pb.PostGetTask) (UniqueTodo, error) {
 }
 
 func (db *SqliteDatabase) GetTasks(t *pb.PostGetTasks) ([]UniqueTodo, error) {
+	fmt.Printf("in db: %+v", t)
 	query := ""
+	var todos []UniqueTodo
 
-	if t.MaxTaskLength == nil && t.MinTaskLength == nil {
+	if t.MaxTaskLength == nil && t.MinTaskLength == nil || *t.MaxTaskLength == 0 {
+
 		query = `select * from todos;`
 		execRes, err := db.Connection.Query(query)
 		if err != nil {
@@ -76,39 +79,41 @@ func (db *SqliteDatabase) GetTasks(t *pb.PostGetTasks) ([]UniqueTodo, error) {
 					log.Fatal("error getting row")
 				}
 				fmt.Printf("%+v\n", t)
-				log.Println(t)
+				todos = append(todos, t)
 			}
 		}
-	}
-	query = `
+	} else {
+		query = `
         select * from todos
         where todo_length > ?
         and todo_length < ?
-    `
+        `
 
-	preparedQuery, err := db.Connection.Prepare(query)
-	if err != nil {
-		log.Printf("error preparing query: %q", err)
-	}
+		preparedQuery, err := db.Connection.Prepare(query)
+		if err != nil {
+			log.Printf("error preparing query: %q", err)
+		}
 
-	getTasks := &GetTasks{
-		MinTaskLength: *t.MinTaskLength,
-		MaxTaskLength: *t.MaxTaskLength,
-	}
+		fmt.Printf("probably erroring here %v", t)
 
-	rows, err := preparedQuery.Query(getTasks.MinTaskLength, getTasks.MaxTaskLength)
-	defer rows.Close()
+		getTasks := &GetTasks{
+			MinTaskLength: *t.MinTaskLength,
+			MaxTaskLength: *t.MaxTaskLength,
+		}
 
-	if err != nil {
-		log.Printf("Error getting todos: %q: %s", err, query)
-	}
+		rows, err := preparedQuery.Query(getTasks.MinTaskLength, getTasks.MaxTaskLength)
+		defer rows.Close()
 
-	var todos []UniqueTodo
-	for rows.Next() {
-		var uTodo UniqueTodo
-		rows.Scan(&uTodo.ID, &uTodo.TaskName, &uTodo.TaskLength)
-		log.Printf("Row: %v", uTodo)
-		todos = append(todos, uTodo)
+		if err != nil {
+			log.Printf("Error getting todos: %q: %s", err, query)
+		}
+
+		for rows.Next() {
+			var uTodo UniqueTodo
+			rows.Scan(&uTodo.ID, &uTodo.TaskName, &uTodo.TaskLength)
+			log.Printf("Row: %v", uTodo)
+			todos = append(todos, uTodo)
+		}
 	}
 	return todos, nil
 }

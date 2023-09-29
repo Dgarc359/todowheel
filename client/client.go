@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	pb "todowheel-backend/proto"
@@ -62,7 +62,7 @@ func CreateClient() {
 		fmt.Println(err)
 	}
 
-	body, err = ioutil.ReadAll(res.Body)
+	body, err = io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Print(err)
 	}
