@@ -40,6 +40,23 @@ func NewSqliteStore() (*SqliteDatabase, error) {
 		Connection: conn,
 	}, nil
 }
+func (db *SqliteDatabase) GetTask(t *pb.PostGetTask) (UniqueTodo, error) {
+	query := `
+        select * from todos
+        where todo_name = ?;
+    `
+
+	preparedQuery, err := db.Connection.Prepare(query)
+	if err != nil {
+		log.Fatal("failed to prepare get task")
+	}
+	res := preparedQuery.QueryRow(t.TaskName)
+	var r UniqueTodo
+
+	res.Scan(&r.TaskName, &r.ID, &r.TaskLength)
+
+	return r, nil
+}
 
 func (db *SqliteDatabase) GetTasks(t *pb.PostGetTasks) ([]UniqueTodo, error) {
 	query := ""

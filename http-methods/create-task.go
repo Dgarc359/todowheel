@@ -1,6 +1,7 @@
 package util
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
@@ -26,4 +27,6 @@ func CreateTask(w http.ResponseWriter, r *http.Request, conn *db.SqliteDatabase)
 	fmt.Printf("Unmarshalled Body: %v", p)
 
 	conn.CreateTask(p)
+
+	json.NewEncoder(w).Encode(Response{"success", 200})
 }
